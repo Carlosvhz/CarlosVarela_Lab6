@@ -40,7 +40,9 @@ public class cancha extends Lugar{
         this.estado = estado;
     }
 
-    
-    
-    
+     @Override
+    public String toString() {
+        return super.getNombre();
+    }
+        
 }

@@ -39,7 +39,10 @@ public class restaurantes extends Lugar{
     public void setCalificacion(int calificacion) {
         this.calificacion = calificacion;
     }
-    
-    
-    
+
+    @Override
+    public String toString() {
+        return super.getNombre();
+    }
+
 }
