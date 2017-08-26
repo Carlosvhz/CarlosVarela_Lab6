@@ -78,6 +78,7 @@ public class principal extends javax.swing.JFrame {
         jPanel9 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jl_lista = new javax.swing.JList<>();
+        cbx_lugar = new javax.swing.JComboBox<>();
         jPanel6 = new javax.swing.JPanel();
         cbx_listar = new javax.swing.JComboBox<>();
         jLabel20 = new javax.swing.JLabel();
@@ -458,6 +459,12 @@ public class principal extends javax.swing.JFrame {
                 .addGap(44, 44, 44))
         );
 
+        cbx_lugar.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cbx_lugarItemStateChanged(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
@@ -465,16 +472,21 @@ public class principal extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel19)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addComponent(jLabel19)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(cbx_lugar, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(20, 20, 20))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(31, 31, 31)
-                .addComponent(jLabel19)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
+                .addGap(28, 28, 28)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel19)
+                    .addComponent(cbx_lugar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
                 .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -712,6 +724,7 @@ public class principal extends javax.swing.JFrame {
             lugares.addElement(restaurante); 
             cbx_lugarfinal.setModel(lugares);
             cbx_lugarinicio.setModel(lugares);
+            cbx_lugar.setModel(lugares);
             
             tf_nombrerestaurante.setText("");
             tf_direccionrestaurante.setText("");
@@ -738,7 +751,8 @@ public class principal extends javax.swing.JFrame {
             lugares.addElement(casa); 
             cbx_lugarfinal.setModel(lugares);
             cbx_lugarinicio.setModel(lugares);
-            
+            cbx_lugar.setModel(lugares);
+      
             tf_nombrecasa.setText("");
             tf_direccioncasa.setText("");
             sp_seguridadcasa.setValue(0);
@@ -779,7 +793,7 @@ public class principal extends javax.swing.JFrame {
             lugares.addElement(cancha); 
             cbx_lugarfinal.setModel(lugares);
             cbx_lugarinicio.setModel(lugares);
-            
+            cbx_lugar.setModel(lugares);
             tf_nombrecanchas.setText("");
             tf_direccioncancha.setText("");
             sp_seguridadcancha.setValue(0);
@@ -903,9 +917,24 @@ public class principal extends javax.swing.JFrame {
     private void jt_tablaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jt_tablaMouseClicked
         if (evt.isMetaDown()) {
             posicion = jt_tabla.getSelectedRowCount();
-            pop.show(this, evt.getX(), evt.getY());
+            pop.show(jt_tabla, evt.getX(), evt.getY());
         }
     }//GEN-LAST:event_jt_tablaMouseClicked
+
+    private void cbx_lugarItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbx_lugarItemStateChanged
+        if (evt.getStateChange()==2) {
+            DefaultListModel modelo = (DefaultListModel)jl_lista.getModel();
+            Lugar c = (Lugar)cbx_lugar.getSelectedItem();
+            for (int i = 0; i < lugares.size(); i++) {
+                if (lugares.get(i).getSalida()!=null&&c.getSalida()!=null) {
+                    if (lugares.get(i).getSalida().getDistancia()<=c.getSalida().getDistancia()) {
+                       modelo.addElement(lugares);
+                    }
+                }
+            }
+            jl_lista.setModel(modelo);
+        }
+    }//GEN-LAST:event_cbx_lugarItemStateChanged
 
     /**
      * @param args the command line arguments
@@ -953,6 +982,7 @@ public class principal extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cbx_categoriarestaurante;
     private javax.swing.JComboBox<String> cbx_jtree;
     private javax.swing.JComboBox<String> cbx_listar;
+    private javax.swing.JComboBox<String> cbx_lugar;
     private javax.swing.JComboBox<String> cbx_lugarfinal;
     private javax.swing.JComboBox<String> cbx_lugarinicio;
     private javax.swing.ButtonGroup estado_cancha;
