@@ -495,17 +495,9 @@ public class principal extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Nombre", "Categoría", "Calificación", "Dirección"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class
-            };
 
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
             }
-        });
+        ));
         jt_tabla.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jt_tablaMouseClicked(evt);
@@ -613,7 +605,7 @@ public class principal extends javax.swing.JFrame {
             .addComponent(jTabbedPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 367, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        mi_eliminar.setText("jMenuItem1");
+        mi_eliminar.setText("Eliminar");
         mi_eliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mi_eliminarActionPerformed(evt);
@@ -833,14 +825,13 @@ public class principal extends javax.swing.JFrame {
         
         if (evt.getStateChange()==2) {
             DefaultTableModel modelo = (DefaultTableModel)jt_tabla.getModel();
+            modelo.setColumnCount(0);
+            modelo.setRowCount(0);
             if (cbx_listar.getSelectedItem().toString().equals("Restaurantes")) {
-                /*modelo.addColumn("Nombre");
+                modelo.addColumn("Nombre");
                 modelo.addColumn("Categoria");
                 modelo.addColumn("Calificación");
-                modelo.addColumn("Dirección");*/
-                modelo.setColumnCount(0);
-                Object[]colum = {"Nombre", "Categoria", "Calificación", "Dirección"};
-                modelo.addColumn(colum);
+                modelo.addColumn("Dirección");
                 for (int i = 0; i < lugares.size(); i++) {
                     if (lugares.get(i) instanceof restaurantes) {
                         Object[]row = {lugares.get(i).getNombre(), ((restaurantes)lugares.get(i)).getCategoria(), 
@@ -849,8 +840,10 @@ public class principal extends javax.swing.JFrame {
                     }
                 }
             }else if (cbx_listar.getSelectedItem().toString().equals("Canchas")) {
-                /*Object[]colum = {"Nombre", "Categoria", "Estado", "Dirección"};
-                modelo.addColumn(colum);*/
+                modelo.addColumn("Nombre");
+                modelo.addColumn("Categoria");
+                modelo.addColumn("Estado");
+                modelo.addColumn("Dirección");
                 for (int i = 0; i < lugares.size(); i++) {
                     if (lugares.get(i) instanceof cancha) {
                         Object[]row = {lugares.get(i).getNombre(), ((cancha)lugares.get(i)).getCategoria(), 
@@ -859,8 +852,10 @@ public class principal extends javax.swing.JFrame {
                     }
                 }
             }else if (cbx_listar.getSelectedItem().toString().equals("Carreteras")) {
-                /*Object[]colum = {"Numero", "Distancia", "Lugar de Inicio", "Lugar final"};
-                modelo.addColumn(colum);*/
+                modelo.addColumn("Nombre");
+                modelo.addColumn("Distancia");
+                modelo.addColumn("Lugar de Inicio");
+                modelo.addColumn("Lugar final");
                 for (int i = 0; i < carreteras.size(); i++) {
                     if (carreteras.get(i) instanceof carretera) {
                         Object[]row = {carreteras.get(i).getNumero_unico(),carreteras.get(i).getDistancia(),carreteras.get(i).getInicio(),
@@ -906,11 +901,9 @@ public class principal extends javax.swing.JFrame {
     }//GEN-LAST:event_mi_eliminarActionPerformed
 
     private void jt_tablaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jt_tablaMouseClicked
-        DefaultTableModel modelo = (DefaultTableModel)jt_tabla.getModel();
-        modelo.
-        posicion = jt_tabla.getR
         if (evt.isMetaDown()) {
-            pop.show();
+            posicion = jt_tabla.getSelectedRowCount();
+            pop.show(this, evt.getX(), evt.getY());
         }
     }//GEN-LAST:event_jt_tablaMouseClicked
 
